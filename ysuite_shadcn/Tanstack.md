@@ -1,4 +1,4 @@
-Of course. Let's focus solely on TanStack Router and how it is architected in this project.
+TanStack Router and how it is architected in this project.
 
 TanStack Router is a powerful, type-safe routing library for React. In this project, it uses a **file-based routing** system. This means the structure of the files and folders inside the `src/routes` directory directly defines the URL paths of your application.
 

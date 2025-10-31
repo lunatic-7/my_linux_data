@@ -55,7 +55,7 @@ graph TD
         direction LR
         R[__root.tsx]
         S[_authenticated]
-        T['(auth)']
+        T["(auth)"]
     end
 
     J --> R
