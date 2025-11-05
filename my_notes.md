@@ -12,4 +12,9 @@ Works
 5. Adding Filters in contact page DONE
 6. Edit Contact PENDING
 7. Delete Contact PENDING
-8. Authentication PENDING
+8. Authentication PENDING WITH YUSUF
+9. Contact section or any section should also expand when we contract the sidebar
+10. Remove that JSON popup on form submission, can retain it for development
+11. ViewContact section
+12. Filters, pgination all will be server side
+13. Add 5 options for filter (static will also work) then a More+ button
