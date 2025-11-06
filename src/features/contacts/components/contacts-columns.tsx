@@ -1,4 +1,3 @@
-
 import { type ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
@@ -6,6 +5,7 @@ import { DataTableColumnHeader } from '@/components/data-table/column-header'
 import { type Contact } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Link } from '@tanstack/react-router'
 
 export const columns: ColumnDef<Contact>[] = [
   {
@@ -38,7 +38,9 @@ export const columns: ColumnDef<Contact>[] = [
           <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${row.original.name}`} alt={row.original.name} />
           <AvatarFallback>{row.original.name.slice(0, 2)}</AvatarFallback>
         </Avatar>
-        <span>{row.getValue('name')}</span>
+        <Link to="/contacts/$contactId" params={{ contactId: row.original.id }}>
+          <span>{row.getValue('name')}</span>
+        </Link>
       </div>
     ),
   },

@@ -40,6 +40,13 @@ import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_auth
 import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedContactsContactIdRouteRouteImport } from './routes/_authenticated/contacts/$contactId/route'
+import { Route as AuthenticatedContactsContactIdIndexRouteImport } from './routes/_authenticated/contacts/$contactId/index'
+import { Route as AuthenticatedContactsContactIdTasksRouteImport } from './routes/_authenticated/contacts/$contactId/tasks'
+import { Route as AuthenticatedContactsContactIdStatementRouteImport } from './routes/_authenticated/contacts/$contactId/statement'
+import { Route as AuthenticatedContactsContactIdRewardsRouteImport } from './routes/_authenticated/contacts/$contactId/rewards'
+import { Route as AuthenticatedContactsContactIdLogRouteImport } from './routes/_authenticated/contacts/$contactId/log'
+import { Route as AuthenticatedContactsContactIdEstimatesRouteImport } from './routes/_authenticated/contacts/$contactId/estimates'
 
 const ClerkRouteRoute = ClerkRouteRouteImport.update({
   id: '/clerk',
@@ -203,6 +210,48 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedContactsContactIdRouteRoute =
+  AuthenticatedContactsContactIdRouteRouteImport.update({
+    id: '/contacts/$contactId',
+    path: '/contacts/$contactId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedContactsContactIdIndexRoute =
+  AuthenticatedContactsContactIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedContactsContactIdRouteRoute,
+  } as any)
+const AuthenticatedContactsContactIdTasksRoute =
+  AuthenticatedContactsContactIdTasksRouteImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => AuthenticatedContactsContactIdRouteRoute,
+  } as any)
+const AuthenticatedContactsContactIdStatementRoute =
+  AuthenticatedContactsContactIdStatementRouteImport.update({
+    id: '/statement',
+    path: '/statement',
+    getParentRoute: () => AuthenticatedContactsContactIdRouteRoute,
+  } as any)
+const AuthenticatedContactsContactIdRewardsRoute =
+  AuthenticatedContactsContactIdRewardsRouteImport.update({
+    id: '/rewards',
+    path: '/rewards',
+    getParentRoute: () => AuthenticatedContactsContactIdRouteRoute,
+  } as any)
+const AuthenticatedContactsContactIdLogRoute =
+  AuthenticatedContactsContactIdLogRouteImport.update({
+    id: '/log',
+    path: '/log',
+    getParentRoute: () => AuthenticatedContactsContactIdRouteRoute,
+  } as any)
+const AuthenticatedContactsContactIdEstimatesRoute =
+  AuthenticatedContactsContactIdEstimatesRouteImport.update({
+    id: '/estimates',
+    path: '/estimates',
+    getParentRoute: () => AuthenticatedContactsContactIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
@@ -218,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/contacts/$contactId': typeof AuthenticatedContactsContactIdRouteRouteWithChildren
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
@@ -233,6 +283,12 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/contacts/$contactId/estimates': typeof AuthenticatedContactsContactIdEstimatesRoute
+  '/contacts/$contactId/log': typeof AuthenticatedContactsContactIdLogRoute
+  '/contacts/$contactId/rewards': typeof AuthenticatedContactsContactIdRewardsRoute
+  '/contacts/$contactId/statement': typeof AuthenticatedContactsContactIdStatementRoute
+  '/contacts/$contactId/tasks': typeof AuthenticatedContactsContactIdTasksRoute
+  '/contacts/$contactId/': typeof AuthenticatedContactsContactIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
@@ -262,6 +318,12 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/contacts/$contactId/estimates': typeof AuthenticatedContactsContactIdEstimatesRoute
+  '/contacts/$contactId/log': typeof AuthenticatedContactsContactIdLogRoute
+  '/contacts/$contactId/rewards': typeof AuthenticatedContactsContactIdRewardsRoute
+  '/contacts/$contactId/statement': typeof AuthenticatedContactsContactIdStatementRoute
+  '/contacts/$contactId/tasks': typeof AuthenticatedContactsContactIdTasksRoute
+  '/contacts/$contactId': typeof AuthenticatedContactsContactIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -281,6 +343,7 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/contacts/$contactId': typeof AuthenticatedContactsContactIdRouteRouteWithChildren
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
@@ -296,6 +359,12 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/contacts/$contactId/estimates': typeof AuthenticatedContactsContactIdEstimatesRoute
+  '/_authenticated/contacts/$contactId/log': typeof AuthenticatedContactsContactIdLogRoute
+  '/_authenticated/contacts/$contactId/rewards': typeof AuthenticatedContactsContactIdRewardsRoute
+  '/_authenticated/contacts/$contactId/statement': typeof AuthenticatedContactsContactIdStatementRoute
+  '/_authenticated/contacts/$contactId/tasks': typeof AuthenticatedContactsContactIdTasksRoute
+  '/_authenticated/contacts/$contactId/': typeof AuthenticatedContactsContactIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -313,6 +382,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/contacts/$contactId'
     | '/errors/$error'
     | '/settings/account'
     | '/settings/appearance'
@@ -328,6 +398,12 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks'
     | '/users'
+    | '/contacts/$contactId/estimates'
+    | '/contacts/$contactId/log'
+    | '/contacts/$contactId/rewards'
+    | '/contacts/$contactId/statement'
+    | '/contacts/$contactId/tasks'
+    | '/contacts/$contactId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/clerk'
@@ -357,6 +433,12 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/contacts/$contactId/estimates'
+    | '/contacts/$contactId/log'
+    | '/contacts/$contactId/rewards'
+    | '/contacts/$contactId/statement'
+    | '/contacts/$contactId/tasks'
+    | '/contacts/$contactId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -375,6 +457,7 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/'
+    | '/_authenticated/contacts/$contactId'
     | '/_authenticated/errors/$error'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
@@ -390,6 +473,12 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/contacts/$contactId/estimates'
+    | '/_authenticated/contacts/$contactId/log'
+    | '/_authenticated/contacts/$contactId/rewards'
+    | '/_authenticated/contacts/$contactId/statement'
+    | '/_authenticated/contacts/$contactId/tasks'
+    | '/_authenticated/contacts/$contactId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -626,6 +715,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/contacts/$contactId': {
+      id: '/_authenticated/contacts/$contactId'
+      path: '/contacts/$contactId'
+      fullPath: '/contacts/$contactId'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/contacts/$contactId/': {
+      id: '/_authenticated/contacts/$contactId/'
+      path: '/'
+      fullPath: '/contacts/$contactId/'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdIndexRouteImport
+      parentRoute: typeof AuthenticatedContactsContactIdRouteRoute
+    }
+    '/_authenticated/contacts/$contactId/tasks': {
+      id: '/_authenticated/contacts/$contactId/tasks'
+      path: '/tasks'
+      fullPath: '/contacts/$contactId/tasks'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdTasksRouteImport
+      parentRoute: typeof AuthenticatedContactsContactIdRouteRoute
+    }
+    '/_authenticated/contacts/$contactId/statement': {
+      id: '/_authenticated/contacts/$contactId/statement'
+      path: '/statement'
+      fullPath: '/contacts/$contactId/statement'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdStatementRouteImport
+      parentRoute: typeof AuthenticatedContactsContactIdRouteRoute
+    }
+    '/_authenticated/contacts/$contactId/rewards': {
+      id: '/_authenticated/contacts/$contactId/rewards'
+      path: '/rewards'
+      fullPath: '/contacts/$contactId/rewards'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdRewardsRouteImport
+      parentRoute: typeof AuthenticatedContactsContactIdRouteRoute
+    }
+    '/_authenticated/contacts/$contactId/log': {
+      id: '/_authenticated/contacts/$contactId/log'
+      path: '/log'
+      fullPath: '/contacts/$contactId/log'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdLogRouteImport
+      parentRoute: typeof AuthenticatedContactsContactIdRouteRoute
+    }
+    '/_authenticated/contacts/$contactId/estimates': {
+      id: '/_authenticated/contacts/$contactId/estimates'
+      path: '/estimates'
+      fullPath: '/contacts/$contactId/estimates'
+      preLoaderRoute: typeof AuthenticatedContactsContactIdEstimatesRouteImport
+      parentRoute: typeof AuthenticatedContactsContactIdRouteRoute
+    }
   }
 }
 
@@ -652,9 +790,40 @@ const AuthenticatedSettingsRouteRouteWithChildren =
     AuthenticatedSettingsRouteRouteChildren,
   )
 
+interface AuthenticatedContactsContactIdRouteRouteChildren {
+  AuthenticatedContactsContactIdEstimatesRoute: typeof AuthenticatedContactsContactIdEstimatesRoute
+  AuthenticatedContactsContactIdLogRoute: typeof AuthenticatedContactsContactIdLogRoute
+  AuthenticatedContactsContactIdRewardsRoute: typeof AuthenticatedContactsContactIdRewardsRoute
+  AuthenticatedContactsContactIdStatementRoute: typeof AuthenticatedContactsContactIdStatementRoute
+  AuthenticatedContactsContactIdTasksRoute: typeof AuthenticatedContactsContactIdTasksRoute
+  AuthenticatedContactsContactIdIndexRoute: typeof AuthenticatedContactsContactIdIndexRoute
+}
+
+const AuthenticatedContactsContactIdRouteRouteChildren: AuthenticatedContactsContactIdRouteRouteChildren =
+  {
+    AuthenticatedContactsContactIdEstimatesRoute:
+      AuthenticatedContactsContactIdEstimatesRoute,
+    AuthenticatedContactsContactIdLogRoute:
+      AuthenticatedContactsContactIdLogRoute,
+    AuthenticatedContactsContactIdRewardsRoute:
+      AuthenticatedContactsContactIdRewardsRoute,
+    AuthenticatedContactsContactIdStatementRoute:
+      AuthenticatedContactsContactIdStatementRoute,
+    AuthenticatedContactsContactIdTasksRoute:
+      AuthenticatedContactsContactIdTasksRoute,
+    AuthenticatedContactsContactIdIndexRoute:
+      AuthenticatedContactsContactIdIndexRoute,
+  }
+
+const AuthenticatedContactsContactIdRouteRouteWithChildren =
+  AuthenticatedContactsContactIdRouteRoute._addFileChildren(
+    AuthenticatedContactsContactIdRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedContactsContactIdRouteRoute: typeof AuthenticatedContactsContactIdRouteRouteWithChildren
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
@@ -667,6 +836,8 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedContactsContactIdRouteRoute:
+    AuthenticatedContactsContactIdRouteRouteWithChildren,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,

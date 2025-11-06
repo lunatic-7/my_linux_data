@@ -74,3 +74,42 @@ During this session, we performed the following tasks:
 1.  **Implemented Multiselect for Tags:** Changed the "tags" input in the "add contacts dialog" to a multiselect.
 2.  **Added Filtering to Contacts Table:** Implemented filtering functionality for the contacts table, including a combined search filter for name and address, and faceted filters for type and tags.
 3.  **Fixed Tags Filter Bug:** Resolved an issue with the tags filter where it was not correctly filtering the table rows.
+
+## Session Worklog (2025-11-06)
+
+During this session, we performed the following tasks:
+
+1.  **Implemented Delete Functionality in Contacts:**
+    *   Added a "Delete" option to the row actions in the contacts table.
+    *   Created `ContactsDeleteDialog` for single contact deletion.
+    *   Created `ContactsMultiDeleteDialog` for bulk contact deletion.
+    *   Integrated the delete dialogs into the `ContactsDialogs` component.
+    *   Added `DataTableBulkActions` to the `ContactsTable`.
+
+2.  **Implemented Edit Functionality in Contacts:**
+    *   Verified that the "Edit" functionality was already in place.
+    *   Fixed a type issue in `contacts-action-dialog.tsx`.
+
+3.  **Created `viewContact` Page:**
+    *   Created a new route for `/contacts/:contactId`.
+    *   Created the `ViewContact` component, similar to the profile page.
+    *   Created a reusable `TwoColumnLayout` component.
+    *   Implemented a two-column layout with a sidebar and content area.
+    *   Added a top container with contact details and actions.
+    *   Made the contact name in the contacts table a link to the `viewContact` page.
+    *   Created placeholder pages for the sidebar links.
+
+4.  **Improved `viewContact` Page Layout:**
+    *   Improved the layout of the contact details container using a responsive grid.
+    *   Added spacing between the container and the component below it.
+    *   Removed the underline on hover for the sidebar items.
+
+5.  **Implemented Editable Tags in `viewContact` Page:**
+    *   Added an edit icon to the "Tags" field.
+    *   Made the tags editable using the `MultiSelect` component.
+    *   Fixed layout shift and width issues with the editable tags feature.
+    *   Resolved several TypeScript errors related to the editable tags.
+
+6.  **Improved Contacts Page Layout:**
+    *   Made the `Main` component fluid to allow the contacts table to expand and contract.
+    *   Added horizontal margins to the `Main` component.

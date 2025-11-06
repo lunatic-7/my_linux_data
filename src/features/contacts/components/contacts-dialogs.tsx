@@ -1,5 +1,6 @@
 
 import { ContactsActionDialog } from './contacts-action-dialog'
+import { ContactsDeleteDialog } from './contacts-delete-dialog'
 import { useContacts } from './contacts-provider'
 
 export function ContactsDialogs() {
@@ -17,6 +18,18 @@ export function ContactsDialogs() {
           <ContactsActionDialog
             key={`contact-edit-${currentRow.id}`}
             open={open === 'edit'}
+            onOpenChange={() => {
+              setOpen(null)
+              setTimeout(() => {
+                setCurrentRow(null)
+              }, 500)
+            }}
+            currentRow={currentRow}
+          />
+
+          <ContactsDeleteDialog
+            key={`contact-delete-${currentRow.id}`}
+            open={open === 'delete'}
             onOpenChange={() => {
               setOpen(null)
               setTimeout(() => {

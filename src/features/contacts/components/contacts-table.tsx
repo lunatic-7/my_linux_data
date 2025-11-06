@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 import {
@@ -28,6 +27,7 @@ import { types, tags } from '../data/filters'
 // import { statuses } from '../data/data'
 import { type Contact } from '../data/schema'
 import { columns } from './contacts-columns'
+import { DataTableBulkActions } from './data-table-bulk-actions'
 
 const route = getRouteApi('/_authenticated/contacts/')
 
@@ -120,7 +120,9 @@ export function ContactsTable({ data }: DataTableProps) {
             options: tags,
           },
         ]}
-      />
+      >
+        <DataTableBulkActions table={table} />
+      </DataTableToolbar>
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
