@@ -4,7 +4,6 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { contacts } from './data/contacts'
 import { ContactsTable } from './components/contacts-table'
 import { ContactsDialogs } from './components/contacts-dialogs'
 import { ContactsPrimaryButtons } from './components/contacts-primary-buttons'
@@ -31,7 +30,7 @@ export function Contacts() {
           </div>
           <ContactsPrimaryButtons />
         </div>
-        <ContactsTable data={contacts} />
+        <ContactsTable />
         <ContactsDialogs />
       </Main>
     </ContactsProvider>
