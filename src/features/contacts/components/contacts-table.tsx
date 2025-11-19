@@ -94,8 +94,6 @@ export function ContactsTable({
     onPaginationChange,
     onGlobalFilterChange,
     onColumnFiltersChange,
-    manualPagination: true,
-    manualFiltering: true,
   })
 
   const pageCount = table.getPageCount()
