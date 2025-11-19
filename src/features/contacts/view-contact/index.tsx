@@ -18,29 +18,44 @@ import { MultiSelect } from '@/components/ui/multi-select'
 export function ViewContact() {
   const { contactId } = useParams({ from: '/_authenticated/contacts/$contactId' })
   const contact = contacts.find((c) => c.id === contactId)
+  const [contactState, setContactState] = useState(contact)
   const [isEditingTags, setIsEditingTags] = useState(false)
-  const [selectedTags, setSelectedTags] = useState<string[]>(contact?.tags || [])
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    contactState?.tags || []
+  )
 
-  if (!contact) {
+  if (!contactState) {
     return <div>Contact not found</div>
   }
 
   const sidebarNavItems = [
-    { title: 'Recent Tasks', href: `/contacts/${contactId}/tasks`, icon: <></> },
-    { title: 'Recent Estimates', href: `/contacts/${contactId}/estimates`, icon: <></> },
+    {
+      title: 'Recent Tasks',
+      href: `/contacts/${contactId}/tasks`,
+      icon: <></>,
+    },
+    {
+      title: 'Recent Estimates',
+      href: `/contacts/${contactId}/estimates`,
+      icon: <></>,
+    },
     { title: 'Rewards', href: `/contacts/${contactId}/rewards`, icon: <></> },
-    { title: 'Statement', href: `/contacts/${contactId}/statement`, icon: <></> },
+    {
+      title: 'Statement',
+      href: `/contacts/${contactId}/statement`,
+      icon: <></>,
+    },
     { title: 'Log', href: `/contacts/${contactId}/log`, icon: <></> },
   ]
 
   const handleSaveTags = () => {
     // In a real app, you would save the tags to the server here.
-    contact.tags = selectedTags
+    setContactState({ ...contactState, tags: selectedTags })
     setIsEditingTags(false)
   }
 
   const handleCancelEditTags = () => {
-    setSelectedTags(contact.tags)
+    setSelectedTags(contactState.tags)
     setIsEditingTags(false)
   }
 
@@ -57,39 +72,43 @@ export function ViewContact() {
 
       <Main className='mx-10' fluid>
         <TwoColumnLayout
-          title={`Contact / ${contact.name}`}
-          description=""
+          title={`Contact / ${contactState.name}`}
+          description=''
           sidebarNavItems={sidebarNavItems}
         >
-          <Card className="mb-4">
+          <Card className='mb-4'>
             <CardHeader>
-              <div className="flex justify-between items-start">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4">
+              <div className='flex justify-between items-start'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4'>
                   <div>
-                    <CardTitle className="mb-2">Status</CardTitle>
+                    <CardTitle className='mb-2'>Status</CardTitle>
                     <Badge>Active</Badge>
                   </div>
                   <div>
-                    <CardTitle className="mb-2">#ctid</CardTitle>
-                    <p>{contact.id}</p>
+                    <CardTitle className='mb-2'>#ctid</CardTitle>
+                    <p>{contactState.id}</p>
                   </div>
                   <div>
-                    <CardTitle className="mb-2">E-mail</CardTitle>
-                    <p>{contact.email}</p>
+                    <CardTitle className='mb-2'>E-mail</CardTitle>
+                    <p>{contactState.email}</p>
                   </div>
                   <div>
-                    <CardTitle className="mb-2">Mobile</CardTitle>
-                    <p>{contact.mobile}</p>
+                    <CardTitle className='mb-2'>Mobile</CardTitle>
+                    <p>{contactState.mobile}</p>
                   </div>
                   <div className={isEditingTags ? 'col-span-2' : ''}>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className='flex items-center gap-2 mb-2'>
                       <CardTitle>Tags</CardTitle>
-                      <Button variant="ghost" size="icon" onClick={() => setIsEditingTags(true)}>
-                        <Pencil className="h-4 w-4" />
+                      <Button
+                        variant='ghost'
+                        size='icon'
+                        onClick={() => setIsEditingTags(true)}
+                      >
+                        <Pencil className='h-4 w-4' />
                       </Button>
                     </div>
                     {isEditingTags ? (
-                      <div className="flex flex-col gap-2">
+                      <div className='flex flex-col gap-2'>
                         <MultiSelect
                           options={[
                             { label: 'Work', value: 'work' },
@@ -99,17 +118,22 @@ export function ViewContact() {
                           ]}
                           selected={selectedTags}
                           onChange={(selected) => setSelectedTags(selected)}
-                          placeholder="Select tags"
-                          className="w-full"
+                          placeholder='Select tags'
+                          className='w-full'
                         />
-                        <div className="flex gap-2">
+                        <div className='flex gap-2'>
                           <Button onClick={handleSaveTags}>Save</Button>
-                          <Button variant="outline" onClick={handleCancelEditTags}>Cancel</Button>
+                          <Button
+                            variant='outline'
+                            onClick={handleCancelEditTags}
+                          >
+                            Cancel
+                          </Button>
                         </div>
                       </div>
                     ) : (
-                      <div className="flex flex-wrap gap-1">
-                        {contact.tags.map((tag) => (
+                      <div className='flex flex-wrap gap-1'>
+                        {contactState.tags.map((tag) => (
                           <Badge key={tag}>{tag}</Badge>
                         ))}
                       </div>
@@ -118,7 +142,7 @@ export function ViewContact() {
                 </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
+                    <Button variant='ghost' size='icon'>
                       <MoreVertical />
                     </Button>
                   </DropdownMenuTrigger>

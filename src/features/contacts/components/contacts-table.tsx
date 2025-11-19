@@ -33,9 +33,15 @@ const route = getRouteApi('/_authenticated/contacts/')
 
 type DataTableProps = {
   data: Contact[]
+  onSelectContact: (contact: Contact | null) => void
+  selectedContact: Contact | null
 }
 
-export function ContactsTable({ data }: DataTableProps) {
+export function ContactsTable({
+  data,
+  onSelectContact,
+  selectedContact,
+}: DataTableProps) {
   const [rowSelection, setRowSelection] = useState({})
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -69,6 +75,10 @@ export function ContactsTable({ data }: DataTableProps) {
       columnFilters,
       globalFilter,
       pagination,
+    },
+    meta: {
+      onSelectContact,
+      selectedContact,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,

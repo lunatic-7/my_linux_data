@@ -1,7 +1,7 @@
 import { Outlet } from '@tanstack/react-router'
 import { Separator } from '@/components/ui/separator'
 import { SidebarNav } from '@/features/settings/components/sidebar-nav'
-import { JSX } from 'react'
+import { type JSX } from 'react'
 
 export function TwoColumnLayout({
   title,

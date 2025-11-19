@@ -9,8 +9,17 @@ import { ContactsTable } from './components/contacts-table'
 import { ContactsDialogs } from './components/contacts-dialogs'
 import { ContactsPrimaryButtons } from './components/contacts-primary-buttons'
 import { ContactsProvider } from './components/contacts-provider'
+import { useState } from 'react'
+import { type Contact } from './data/schema'
+import { ContactDetailsSidebar } from './components/contact-details-sidebar'
 
 export function Contacts() {
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
+
+  function handleSelectContact(contact: Contact | null) {
+    setSelectedContact(contact)
+  }
+
   return (
     <ContactsProvider>
       <Header fixed>
@@ -31,7 +40,23 @@ export function Contacts() {
           </div>
           <ContactsPrimaryButtons />
         </div>
-        <ContactsTable data={contacts} />
+        <div className='flex flex-1 gap-6'>
+          <div
+            className={`flex-1 transition-all duration-300 ${
+              selectedContact ? 'max-w-[calc(100%-384px)]' : 'max-w-full'
+            }`}
+          >
+            <ContactsTable
+              data={contacts}
+              onSelectContact={handleSelectContact}
+              selectedContact={selectedContact}
+            />
+          </div>
+          <ContactDetailsSidebar
+            contact={selectedContact}
+            onClose={() => handleSelectContact(null)}
+          />
+        </div>
         <ContactsDialogs />
       </Main>
     </ContactsProvider>

@@ -6,6 +6,9 @@ import { type Contact } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Link } from '@tanstack/react-router'
+import { Button } from '@/components/ui/button'
+import { IconChevronRight } from '@tabler/icons-react'
+import { cn } from '@/lib/utils'
 
 export const columns: ColumnDef<Contact>[] = [
   {
@@ -33,16 +36,47 @@ export const columns: ColumnDef<Contact>[] = [
       <DataTableColumnHeader column={column} title='Name' />
     ),
     cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <Avatar className="w-8 h-8">
-          <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${row.original.name}`} alt={row.original.name} />
+      <div className='flex items-center gap-2'>
+        <Avatar className='h-8 w-8'>
+          <AvatarImage
+            src={`https://api.dicebear.com/7.x/initials/svg?seed=${row.original.name}`}
+            alt={row.original.name}
+          />
           <AvatarFallback>{row.original.name.slice(0, 2)}</AvatarFallback>
         </Avatar>
-        <Link to="/contacts/$contactId" params={{ contactId: row.original.id }}>
+        <Link to='/contacts/$contactId' params={{ contactId: row.original.id }}>
           <span>{row.getValue('name')}</span>
         </Link>
       </div>
     ),
+  },
+  {
+    id: 'details',
+    cell: ({ row, table }) => {
+      const { onSelectContact, selectedContact } = table.options.meta as {
+        onSelectContact: (contact: Contact | null) => void
+        selectedContact: Contact | null
+      }
+      const isSelected = selectedContact?.id === row.original.id
+      console.log(isSelected);
+      
+
+      return (
+        <Button
+          variant='ghost'
+          size='icon'
+          onClick={() =>
+            onSelectContact(isSelected ? null : row.original)
+          }
+        >
+          <IconChevronRight
+            className={cn('h-5 w-5 transform transition-transform', {
+              'rotate-180': isSelected,
+            })}
+          />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: 'address',
@@ -68,11 +102,11 @@ export const columns: ColumnDef<Contact>[] = [
     cell: ({ row }) => {
       const type: string = row.getValue('type')
       return (
-        <Badge variant='secondary' >
+        <Badge variant='secondary'>
           {type.charAt(0).toUpperCase() + type.slice(1)}
         </Badge>
       )
-    }
+    },
   },
   {
     accessorKey: 'tags',
@@ -81,7 +115,8 @@ export const columns: ColumnDef<Contact>[] = [
     ),
     cell: ({ row }) => {
       const tags: string[] = row.getValue('tags')
-      const contactTagStyles = 'bg-sky-200/40 text-sky-900 dark:text-sky-100 border-sky-300'
+      const contactTagStyles =
+        'bg-sky-200/40 text-sky-900 dark:text-sky-100 border-sky-300'
       return (
         <div className='flex flex-wrap gap-1'>
           {tags.map((tag) => (
@@ -95,7 +130,7 @@ export const columns: ColumnDef<Contact>[] = [
     filterFn: (row, id, value) => {
       const rowValue: string[] = row.getValue(id)
       const filterValue: string[] = value
-      return filterValue.some(val => rowValue.includes(val))
+      return filterValue.some((val) => rowValue.includes(val))
     },
   },
   {
