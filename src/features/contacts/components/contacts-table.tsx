@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
 import {
   type SortingState,
   type VisibilityState,
@@ -23,8 +24,13 @@ import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import { types, tags } from '../data/filters'
 import { columns } from './contacts-columns'
 import { DataTableBulkActions } from './data-table-bulk-actions'
+<<<<<<< HEAD
 import { Skeleton } from '@/components/ui/skeleton'
 import { type Contact } from '../data/schema'
+=======
+import { getContacts } from '../data/api'
+import { Skeleton } from '@/components/ui/skeleton'
+>>>>>>> 14aa0bfa671990eab77238196ef8f3e182a1464b
 
 const route = getRouteApi('/_authenticated/contacts/')
 
@@ -66,7 +72,35 @@ export function ContactsTable({
       { columnId: 'tags', searchKey: 'tags', type: 'array' },
     ],
   })
+<<<<<<< HEAD
   
+=======
+
+  const typeFilter =
+    (columnFilters.find((f) => f.id === 'type')?.value as string[]) || []
+  const tagsFilter =
+    (columnFilters.find((f) => f.id === 'tags')?.value as string[]) || []
+
+  const { data, isLoading } = useQuery({
+    queryKey: [
+      'contacts',
+      pagination.pageIndex,
+      pagination.pageSize,
+      globalFilter,
+      typeFilter,
+      tagsFilter,
+    ],
+    queryFn: () =>
+      getContacts({
+        page: pagination.pageIndex + 1,
+        pageSize: pagination.pageSize,
+        filter: globalFilter,
+        type: typeFilter,
+        tags: tagsFilter,
+      }),
+  })
+
+>>>>>>> 14aa0bfa671990eab77238196ef8f3e182a1464b
   const table = useReactTable({
     data: data?.data ?? [],
     columns,
