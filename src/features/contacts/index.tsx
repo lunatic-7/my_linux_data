@@ -10,6 +10,7 @@ import { ContactsPrimaryButtons } from './components/contacts-primary-buttons'
 import { ContactsProvider } from './components/contacts-provider'
 import { useState } from 'react'
 import { type Contact } from './data/schema'
+import { contacts } from './data/contacts'
 import { ContactDetailsSidebar } from './components/contact-details-sidebar'
 
 export function Contacts() {
@@ -46,7 +47,11 @@ export function Contacts() {
             }`}
           >
             <ContactsTable
-              data={contacts}
+              data={{
+                data: contacts,
+                pageCount: Math.ceil(contacts.length / 10),
+              }}
+              isLoading={false}
               onSelectContact={handleSelectContact}
               selectedContact={selectedContact}
             />
