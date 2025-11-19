@@ -58,8 +58,6 @@ export const columns: ColumnDef<Contact>[] = [
         selectedContact: Contact | null
       }
       const isSelected = selectedContact?.id === row.original.id
-      console.log(isSelected);
-      
 
       return (
         <Button

@@ -11,7 +11,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
-import { IconWhatsapp } from '@/assets/brand-icons'
 import {
   IconMail,
   IconPhone,
