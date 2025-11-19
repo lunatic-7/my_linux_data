@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
 import {
   type SortingState,
   type VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -24,10 +22,10 @@ import {
 } from '@/components/ui/table'
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import { types, tags } from '../data/filters'
-// import { statuses } from '../data/data'
-import { type Contact } from '../data/schema'
 import { columns } from './contacts-columns'
 import { DataTableBulkActions } from './data-table-bulk-actions'
+import { getContacts } from '../data/api'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const route = getRouteApi('/_authenticated/contacts/')
 
@@ -65,9 +63,34 @@ export function ContactsTable({
     ],
   })
 
+  const typeFilter =
+    (columnFilters.find((f) => f.id === 'type')?.value as string[]) || []
+  const tagsFilter =
+    (columnFilters.find((f) => f.id === 'tags')?.value as string[]) || []
+
+  const { data, isLoading } = useQuery({
+    queryKey: [
+      'contacts',
+      pagination.pageIndex,
+      pagination.pageSize,
+      globalFilter,
+      typeFilter,
+      tagsFilter,
+    ],
+    queryFn: () =>
+      getContacts({
+        page: pagination.pageIndex + 1,
+        pageSize: pagination.pageSize,
+        filter: globalFilter,
+        type: typeFilter,
+        tags: tagsFilter,
+      }),
+  })
+
   const table = useReactTable({
-    data,
+    data: data?.data ?? [],
     columns,
+    pageCount: data?.pageCount ?? -1,
     state: {
       sorting,
       columnVisibility,
@@ -84,23 +107,14 @@ export function ContactsTable({
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
-    globalFilterFn: (row, _columnId, filterValue) => {
-      const name = String(row.getValue('name')).toLowerCase()
-      const email = String(row.getValue('email')).toLowerCase()
-      const address = String(row.getValue('address')).toLowerCase()
-      const searchValue = String(filterValue).toLowerCase()
-
-      return name.includes(searchValue) || email.includes(searchValue) || address.includes(searchValue)
-    },
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
     onPaginationChange,
     onGlobalFilterChange,
     onColumnFiltersChange,
+    manualPagination: true,
+    manualFiltering: true,
   })
 
   const pageCount = table.getPageCount()
@@ -161,7 +175,20 @@ export function ContactsTable({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className='h-24'>
+                  <div className='flex flex-col gap-4'>
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <Skeleton
+                        key={i}
+                        className='h-[40px] w-full rounded-md'
+                      />
+                    ))}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
